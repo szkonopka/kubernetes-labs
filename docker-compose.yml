@@ -1,0 +1,26 @@
+version: '3.1'
+services:
+  db:
+    image: mysql:8
+    networks:
+      - team16-net
+    environment:
+      - MYSQL_ROOT_PASSWORD=pass
+      - MYSQL_DATABASE=book
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user
+  app:
+    image: 'app'
+    depends_on: 
+      - 'db'
+    build: './app'
+    networks:
+      - team16-net
+    expose: 
+      - 8080
+    ports:
+      - 8080:8080
+    command: sleep 10000
+
+networks:
+  team16-net:
